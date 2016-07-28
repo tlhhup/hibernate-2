@@ -1,0 +1,27 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.hibernateQuery.entity">
+    <class name="Student" table="students">
+        <id name="id" column="id" type="string">
+            <generator class="uuid"/>
+        </id>
+        <property name="name" column="name" type="string" length="20"/>
+        <property name="address" column="address" type="string" length="20"/>
+        <property name="age" column="age" type="int"/>
+        
+        <!-- 为持久化的属性，用于计算：sql语句 -->
+        <property name="count">
+            <!-- 计算用的：执行sql语句 
+            	 小括号不能省略
+            -->
+            <formula>(select count(*) from students)</formula>
+        </property>
+        
+        <!-- 与教师的多对一关系:外键
+        	 column：外键的名称
+        	 cascade：级联,执行该操作时候，一并其他的操作
+         -->
+        <many-to-one name="teacher" column="teacherId" cascade="delete"/>
+    </class>
+</hibernate-mapping>  

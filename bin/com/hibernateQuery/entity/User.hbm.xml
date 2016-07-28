@@ -1,0 +1,27 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.hibernateQuery.entity">
+    <class name="User" table="users">
+        <id name="id" column="id" type="int">
+            <generator class="identity"/>
+        </id>
+        <property name="userName" column="userName" length="20" type="string"/>
+        <property name="password" column="password" length="20" type="string"/>
+        <property name="address" column="address" length="20" type="string"/>
+        <property name="tel" column="tel" length="20" type="string"/>
+        <property name="number" column="number" type="string"/>
+        <property name="note">
+            <column name="note" sql-type="varchar(600)"/>
+        </property>
+        
+        <!-- 与角色的多对多关系:中间表
+        	table:中间表的名称
+         -->
+        <set name="roles" table="user_role_links" cascade="save-update" lazy="false">
+            <!-- 中间表的用户的id所对应的字段 -->
+            <key column="userId"/>
+            <many-to-many column="roleID" class="Role"/>
+        </set>
+    </class>
+</hibernate-mapping>  

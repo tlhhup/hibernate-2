@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="com.hibernateQuery.entity">
+    <class name="IDCard" table="idCards">
+        <id name="id" column="id" type="int">
+            <!-- 
+            	foreign：外键，值来源于另一张表,设置数据来源
+             -->
+            <generator class="foreign">
+                <param name="property">user</param>
+            </generator>
+        </id>
+        <property name="number" column="number" type="string" length="100"/>
+        
+        <!-- 
+        	多对一的特殊情况
+         -->
+        <one-to-one name="user" constrained="true"/>
+    </class>
+</hibernate-mapping>  
